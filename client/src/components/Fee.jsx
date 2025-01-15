@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import Animation from "./Animation";
 import dayjs from "dayjs";
 
@@ -9,7 +9,7 @@ let dt = dayjs(new Date()).format("MMM-YYYY");
 console.log("dt", dt);
 
 export default function Fee() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [checkFee, setCheckFee] = useState([]);
 
   const [feeData, setFeeData] = useState([]);

@@ -1,8 +1,8 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router";
 
 export default function Navbar() {
-  let location = useLocation();
+  // let location = useLocation();
 
   return (
     <>
@@ -63,7 +63,7 @@ export default function Navbar() {
                   >
                     Fees
                   </Link>
-                  <Link
+                  {/* <Link
                     to={"/fee2"}
                     className={
                       location.pathname == `/fee2`
@@ -72,9 +72,9 @@ export default function Navbar() {
                     }
                   >
                     Student Feedback
-                  </Link>
+                  </Link> */}
 
-                  <Link
+                  {/* <Link
                     to={"/dashboard/rank"}
                     className={
                       location.pathname == `/dashboard/rank`
@@ -83,7 +83,7 @@ export default function Navbar() {
                     }
                   >
                     Teacher Rank
-                  </Link>
+                  </Link> */}
 
                   {/* <Link
                     to={"/dashboard/batch"}

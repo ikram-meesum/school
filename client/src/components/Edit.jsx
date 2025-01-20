@@ -1,46 +1,54 @@
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import axios from "axios";
-// import dayjs from "dayjs";
 import Animation from "./Animation";
-
+import { useParams, useNavigate, Link } from "react-router";
 import { useForm } from "react-hook-form";
-// import Navbar from "../components/Navbar";
-// import toast, { Toaster } from "react-hot-toast";
-import { useNavigate } from "react-router";
+import dayjs from "dayjs";
 
-export default function AddStudent() {
+export default function Edit() {
+  const [allStudent, setAllStudent] = useState([]);
+  let { id } = useParams();
+  //   console.log("sid", id);
   const navigate = useNavigate();
-  const [allClass, setAllClass] = useState([]);
-  //   const [filter, setFilter] = useState("");
-
-  // async function getData() {
-  //   try {
-  //     const res = await axios("http://localhost:9000/classes");
-  //     const data = await res.data;
-  //     console.log(data);
-  //     setAllStudent(data);
-  //   } catch (err) {
-  //     console.log("Error occured from getdata method: ", err);
-  //   }
-  // }
 
   useEffect(() => {
-    // getData();
+    console.log("loaded.");
   }, []);
 
+  // window.location.reload();
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm();
+  } = useForm({
+    defaultValues: async () => {
+      const response = await fetch(`http://localhost:9000/student/${id}`);
+      const data = await response.json();
+      console.log("before update: ", data);
+      //   SETDEPARTID(data.depart_id);
+
+      return {
+        sname: data.sname,
+        fname: data.fname,
+        mobile: data.mobile,
+        address: data.address,
+        dob: dayjs(data.dob).format("YYYY-MM-DD"),
+        doj: dayjs(data.doj).format("YYYY-MM-DD"),
+        dor: dayjs(data.dor).format("YYYY-MM-DD"),
+        rollno: data.rollno,
+        classes: data.class_name,
+        present: data.present,
+      };
+    },
+  });
 
   const onSubmit = (data) => {
-    console.log(data);
+    // console.log("before: ", data);
 
     axios
-      .post("http://localhost:9000/student", {
+      .put(`http://localhost:9000/student/${id}`, {
         sname: data.sname,
         fname: data.fname,
         mobile: data.mobile,
@@ -48,30 +56,27 @@ export default function AddStudent() {
         dob: data.dob,
         doj: data.doj,
         dor: data.dor,
-        rollno: data.roll,
+        rollno: data.rollno,
         class_name: data.classes,
+        present: data.present,
       })
-      .then(
-        (response) => {
-          console.log(response);
-          // alert("Signup Successfully!");
-          reset();
-          // toast.success("Student inserted successfully!");
-          navigate("/home");
-        },
-        (error) => {
-          console.log(error.message);
-        }
-      );
+      .then((response) => {
+        console.log("res:", response.data);
+        // reset();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    navigate("/home");
   };
 
   return (
-    <div>
+    <>
       <Navbar />
       <Animation>
         <section className="bg-gray-50 h-screen">
           <h1 className="text-3xl text-center text-slate-800 font-semibold pt-10 pb-6">
-            Student Registration
+            Edit Student Record
           </h1>
           {/* start alert */}
           <div
@@ -90,7 +95,7 @@ export default function AddStudent() {
             <span className="sr-only">Info</span>
             <div>
               <span className="font-medium">Important Message!</span> Please
-              fill the student form carefully for registration.
+              update the student record carefully.
             </div>
           </div>
           {/* end alert */}
@@ -216,7 +221,7 @@ export default function AddStudent() {
                 <label>Roll No</label>
                 <input
                   type="text"
-                  {...register("roll", { required: true, minLength: 2 })}
+                  {...register("rollno", { required: true, minLength: 2 })}
                   className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                   placeholder="Enter Roll No"
                 />
@@ -238,22 +243,36 @@ export default function AddStudent() {
                 )}
               </div>
 
-              <div className="md:col-span-3">
-                <button
-                  // disabled={!pImage}
-                  className={
-                    // !pImage
-                    //   ? "bg-gray-200 text-slate-400 font-bold py-2 px-6 rounded"
-                    `bg-slate-800 mt-6 hover:bg-slate-700 text-white font-medium py-2 px-2 text-sm rounded`
-                  }
+              <div className="md:col-span-3 mt-4">
+                <label>Present</label>
+
+                <select
+                  {...register("present")}
+                  className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                 >
-                  Add New Student
+                  <option value="YES">YES</option>
+                  <option value="NO">NO</option>
+                </select>
+              </div>
+
+              <div className="md:col-span-4 mt-4">
+                <button
+                  className={`bg-slate-800 mt-6 hover:bg-slate-700 text-white font-medium py-2 px-3 text-sm rounded`}
+                >
+                  Update Record
                 </button>
+                &nbsp;&nbsp;
+                <Link
+                  to={"/home"}
+                  className="bg-blue-600 mt-6 hover:bg-blue-700 text-white font-medium py-2 px-3 text-sm rounded"
+                >
+                  Go Back
+                </Link>
               </div>
             </div>
           </form>
         </section>
       </Animation>
-    </div>
+    </>
   );
 }

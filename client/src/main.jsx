@@ -10,24 +10,13 @@ import Home from "./components/Home.jsx";
 // import Classes from "./components/Classes.jsx";
 import AddStudent from "./components/AddStudent.jsx";
 import Fee from "./components/Fee.jsx";
-
+import Edit from "./components/Edit.jsx";
+import StudentDetail from "./components/StudentDetail.jsx";
 // const router = createBrowserRouter([
-//   {
-//     path: "/",
-//     element: <Login />,
-//   },
 //   {
 //     // path: "/comment/:id/:tid",
 //     path: "/home",
 //     element: <Home />,
-//   },
-//   {
-//     path: "/student",
-//     element: <AddStudent />,
-//   },
-//   {
-//     path: "/fee",
-//     element: <Fee />,
 //   },
 // ]);
 
@@ -40,6 +29,8 @@ ReactDOM.createRoot(root).render(
       <Route path="/home" element={<Home />} />
       <Route path="/student" element={<AddStudent />} />
       <Route path="/fee" element={<Fee />} />
+      <Route path="/edit/:id" element={<Edit />} />
+      <Route path="/studentdetail/:id" element={<StudentDetail />} />
     </Routes>
     {/* <App /> */}
   </BrowserRouter>

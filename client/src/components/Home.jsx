@@ -8,17 +8,23 @@ import Animation from "./Animation";
 import { MdModeEditOutline } from "react-icons/md";
 import { MdFeed } from "react-icons/md";
 import { Link } from "react-router";
+import FadeLoader from "react-spinners/FadeLoader";
+import { BiMessageDetail } from "react-icons/bi";
+import { AiFillDollarCircle } from "react-icons/ai";
 
 export default function Home() {
+  let [loading, setLoading] = useState(true);
   const [allStudent, setAllStudent] = useState([]);
   const [filter, setFilter] = useState("");
 
   async function getData() {
     try {
+      setLoading(true);
       const res = await axios("http://localhost:9000/student");
       const data = await res.data;
       console.log(data);
       setAllStudent(data);
+      setLoading(false);
     } catch (err) {
       console.log("Error occured from getdata method: ", err);
     }
@@ -37,12 +43,6 @@ export default function Home() {
         item["class_name"].toLowerCase().includes(lowercasedFilter)) ||
       (item["rollno"] &&
         item["rollno"].toLowerCase().includes(lowercasedFilter))
-
-      // (item["supervisor_id"] &&
-      //   item["supervisor_id"].super_name &&
-      //   item["supervisor_id"].super_name
-      //     .toLowerCase()
-      //     .includes(lowercasedFilter))
     ) {
       return true;
     } else {
@@ -50,8 +50,12 @@ export default function Home() {
     }
   });
 
+  // window.location.reload();
+
   useEffect(() => {
+    // setLoading(true);
     getData();
+    // setLoading(false);
   }, []);
 
   const getPDF = () => {
@@ -146,6 +150,17 @@ export default function Home() {
             </div>
           </section>
 
+          <div className="flex justify-center items-center">
+            <FadeLoader
+              color={"red"}
+              loading={loading}
+              // cssOverride={override}
+              size={150}
+              aria-label="Loading Spinner"
+              data-testid="loader"
+            />
+          </div>
+          {/*  */}
           <section>
             <div className="border rounded-lg mx-5 mt-5 overflow-hidden shadow-lg">
               <table
@@ -227,13 +242,22 @@ export default function Home() {
 
                           <td className="py-1">
                             <p className="flex">
-                              <MdModeEditOutline
-                                color="#3498db"
-                                size={"20px"}
-                              />
+                              <Link to={`/edit/${student._id}`}>
+                                <MdModeEditOutline
+                                  color="#3498db"
+                                  size={"20px"}
+                                />
+                              </Link>
                               &nbsp;&nbsp;&nbsp;
                               <Link to={`/getfee/${student._id}`}>
-                                <MdFeed color="#e74c3c" size={"20px"} />
+                                <AiFillDollarCircle
+                                  color="#e74c3c"
+                                  size={"20px"}
+                                />
+                              </Link>
+                              &nbsp;&nbsp;&nbsp;
+                              <Link to={`/studentdetail/${student._id}`}>
+                                <MdFeed color="#27ae60" size={"20px"} />
                               </Link>
                             </p>
                           </td>

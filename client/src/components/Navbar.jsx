@@ -39,7 +39,18 @@ export default function Navbar() {
                         : "rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
                     }
                   >
-                    All Student
+                    Current Student
+                  </Link>
+
+                  <Link
+                    to={"/pass"}
+                    className={
+                      location.pathname == `/pass`
+                        ? "bg-slate-600 rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-gray-700 hover:text-white"
+                        : "rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                    }
+                  >
+                    Passout Student
                   </Link>
 
                   <Link

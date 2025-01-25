@@ -12,7 +12,7 @@ import FadeLoader from "react-spinners/FadeLoader";
 import { BiMessageDetail } from "react-icons/bi";
 import { AiFillDollarCircle } from "react-icons/ai";
 
-export default function Home() {
+export default function Passout() {
   let [loading, setLoading] = useState(true);
   const [allStudent, setAllStudent] = useState([]);
   const [filter, setFilter] = useState("");
@@ -20,7 +20,7 @@ export default function Home() {
   async function getData() {
     try {
       setLoading(true);
-      const res = await axios("http://localhost:9000/student");
+      const res = await axios("http://localhost:9000/student/pass");
       const data = await res.data;
       console.log(data);
       setAllStudent(data);
@@ -122,7 +122,7 @@ export default function Home() {
         <main className="bg-gray-50 h-screen">
           <section className="flex justify-center pt-9 mb-5">
             <h2 className="text-3xl text-center font-medium text-slate-800">
-              All Current Students Record
+              All Passout Students Record
             </h2>
             {/*  */}
             <div className="w-32"></div>
@@ -192,7 +192,7 @@ export default function Home() {
                       CLASS NAME
                     </th>
 
-                    <th scope="col" className="pr-3 py-3">
+                    <th scope="col" className="pr-5 py-3">
                       MOBILE
                     </th>
 
@@ -242,12 +242,12 @@ export default function Home() {
 
                           <td className="py-1">
                             <p className="flex">
-                              <Link to={`/edit/${student._id}`}>
+                              {/* <Link to={`/edit/${student._id}`}>
                                 <MdModeEditOutline
                                   color="#3498db"
                                   size={"20px"}
                                 />
-                              </Link>
+                              </Link> */}
                               &nbsp;&nbsp;&nbsp;
                               <Link to={`/getfee/${student._id}`}>
                                 <AiFillDollarCircle

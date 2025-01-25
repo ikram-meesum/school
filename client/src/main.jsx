@@ -12,6 +12,8 @@ import AddStudent from "./components/AddStudent.jsx";
 import Fee from "./components/Fee.jsx";
 import Edit from "./components/Edit.jsx";
 import StudentDetail from "./components/StudentDetail.jsx";
+import Passout from "./components/Passout.jsx";
+import GetFee from "./components/GetFee.jsx";
 // const router = createBrowserRouter([
 //   {
 //     // path: "/comment/:id/:tid",
@@ -29,8 +31,10 @@ ReactDOM.createRoot(root).render(
       <Route path="/home" element={<Home />} />
       <Route path="/student" element={<AddStudent />} />
       <Route path="/fee" element={<Fee />} />
+      <Route path="/getfee/:id" element={<GetFee />} />
       <Route path="/edit/:id" element={<Edit />} />
       <Route path="/studentdetail/:id" element={<StudentDetail />} />
+      <Route path="/pass" element={<Passout />} />
     </Routes>
     {/* <App /> */}
   </BrowserRouter>

@@ -38,6 +38,7 @@ export default function Fee() {
       } else {
         console.log(res);
         setCheckFee(res);
+        location.reload();
         // alert("NOT EXIST");
       }
       // const data = await res.data;
@@ -159,7 +160,13 @@ export default function Fee() {
                         </td>
 
                         <td className="mr-1 py-1">{student.amount}</td>
-                        <td className="mr-1 py-1">{student.rcvd_date}</td>
+                        <td className="mr-1 py-1">
+                          {student.rcvd_date ? (
+                            dayjs(student.rcvd_date).format("DD-MMM-YYYY")
+                          ) : (
+                            <span className="text-red-600">UNPAID</span>
+                          )}
+                        </td>
                       </tr>
                     );
                   })}

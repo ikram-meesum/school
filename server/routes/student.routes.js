@@ -22,6 +22,26 @@ route.get("/", async (req, res) => {
   }
 });
 
+// PASSOUT STUDENT
+route.get("/pass", async (req, res) => {
+  try {
+    const doc = await Student.find(
+      {
+        present: "NO",
+      },
+      null,
+      { sort: { _id: -1 } }
+    );
+    //   .populate("teacher_id", "teacher")
+    //   .sort({ _id: -1 })
+    //   .exec();
+    // console.log(doc);
+    res.json(doc);
+  } catch (err) {
+    console.log("Error occured from get teacher", err);
+  }
+});
+
 route.get("/:id", async (req, res) => {
   const sid = req.params.id;
   try {
